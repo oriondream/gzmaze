@@ -22,6 +22,10 @@ RegenerateWidget::RegenerateWidget()
   QHBoxLayout *mainLayout = new QHBoxLayout;
   QFrame *mainFrame = new QFrame();
   QVBoxLayout *frameLayout = new QVBoxLayout();
+  QGridLayout *gridLayout = new QGridLayout();
+
+  QLabel *lblMazeFile = new QLabel("Maze file");
+  QLabel *lblCellSize = new QLabel("Cell Size");
 
   QPushButton *browse_button = new QPushButton(tr("Browse For Maze File"));
   connect(browse_button, SIGNAL(clicked()), this, SLOT(OnBrowseFile()));
@@ -38,8 +42,22 @@ RegenerateWidget::RegenerateWidget()
   textEdit->setObjectName("maze_filename");
   textEdit->setFixedHeight(70);
 
+  textCellSize = new QTextEdit(tr("0.18"));
+  textCellSize->setContentsMargins(1, 1, 1, 1);
+  textCellSize->setAlignment(Qt::AlignBottom | Qt::AlignRight);
+  textCellSize->setObjectName("maze_cellSize");
+  textCellSize->setFixedHeight(70);
+
+  gridLayout->addWidget(lblMazeFile,0,0);
+  gridLayout->addWidget(lblCellSize,1,0);
+  gridLayout->addWidget(textEdit, 0, 1);
+  gridLayout->addWidget(textCellSize,1,1);
+  gridLayout->setContentsMargins(2, 2, 2, 2);
+  gridLayout->setVerticalSpacing(3);
+  gridLayout->setHorizontalSpacing(3);
+
   frameLayout->addWidget(browse_button);
-  frameLayout->addWidget(textEdit);
+  frameLayout->addLayout(gridLayout);
   frameLayout->addWidget(button);
   frameLayout->addWidget(randomButton);
   mainFrame->setLayout(frameLayout);
@@ -51,7 +69,7 @@ RegenerateWidget::RegenerateWidget()
   this->setLayout(mainLayout);
 
   this->move(10, 10);
-  this->resize(350, 120);
+  this->resize(350, 180);
 
   this->node = transport::NodePtr(new transport::Node());
   this->node->Init();
@@ -95,6 +113,7 @@ void RegenerateWidget::OnButton()
 {
   msgs::GzString msg;
   maze_filename = textEdit->toPlainText().toStdString();
+  maze_cellSize = textCellSize->toPlainText().toFloat();
   std::string user = std::getenv("USER");
   boost::replace_all(maze_filename, "~", "/home/"+user);
   msg.set_data(maze_filename);

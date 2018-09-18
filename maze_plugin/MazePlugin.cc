@@ -9,7 +9,7 @@
 namespace gazebo
 {
 
-const float MazePlugin::UNIT = 0.18; //distance between centers of squares
+const float MazePlugin::UNIT = 2.0; //distance between centers of squares
 const float MazePlugin::WALL_HEIGHT = 0.05;
 const float MazePlugin::WALL_LENGTH = 0.192;
 const float MazePlugin::WALL_THICKNESS = 0.012;

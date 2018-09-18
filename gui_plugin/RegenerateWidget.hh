@@ -40,7 +40,10 @@ namespace gazebo
       private: transport::PublisherPtr regenPub;
 
       private: QTextEdit *textEdit;
+      private: QTextEdit *textCellSize;
+
       private: std::string maze_filename;
+      private: float maze_cellSize;
     };
 }
 #endif

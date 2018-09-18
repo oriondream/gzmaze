@@ -76,6 +76,7 @@ namespace gazebo {
       std::uniform_int_distribution<int> neighbor_dist;
 
       constexpr static int MAZE_SIZE = 16;
+
       const static float WALL_LENGTH,
             WALL_HEIGHT,
             WALL_THICKNESS,
